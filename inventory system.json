@@ -1,0 +1,320 @@
+{
+  "name": "inventory system",
+  "nodes": [
+    {
+      "parameters": {
+        "public": true,
+        "initialMessages": "Hi there! 👋\nMy name is techbot. How can I assist you today?",
+        "availableInChat": true,
+        "agentName": "inventory manager",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        112,
+        -80
+      ],
+      "id": "93a56931-a1b3-4089-b2d3-24e09e002123",
+      "name": "When chat message received",
+      "webhookId": "1422f154-a2ec-4161-a0c5-9f540de62959"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        320,
+        -80
+      ],
+      "id": "8302975a-35b2-4301-b621-b5bb422865e4",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": "openai/gpt-oss-20b",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        224,
+        128
+      ],
+      "id": "d39fe8bc-f221-4517-9c13-fc5286ba8f4d",
+      "name": "Groq Chat Model",
+      "credentials": {
+        "groqApi": {
+          "id": "QnpydfAjgozA3xHK",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        384,
+        128
+      ],
+      "id": "dd19ed52-4fff-48fe-ba19-9959b91f8ae5",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1ZaxGLEmRtdveFVsQw8Ho-_kOd5KmYefloyfiWZpr3z8",
+          "mode": "list",
+          "cachedResultName": "inventory_ n8n",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1ZaxGLEmRtdveFVsQw8Ho-_kOd5KmYefloyfiWZpr3z8/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 383153295,
+          "mode": "list",
+          "cachedResultName": "inventory n8n",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1ZaxGLEmRtdveFVsQw8Ho-_kOd5KmYefloyfiWZpr3z8/edit#gid=383153295"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        736,
+        128
+      ],
+      "id": "c29ee5ca-b7a1-488d-9c67-64e1476f88b0",
+      "name": "Get row(s) in sheet in Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "vWvjZt3x2vV0Q3r5",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1ZaxGLEmRtdveFVsQw8Ho-_kOd5KmYefloyfiWZpr3z8",
+          "mode": "list",
+          "cachedResultName": "inventory_ n8n",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1ZaxGLEmRtdveFVsQw8Ho-_kOd5KmYefloyfiWZpr3z8/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 383153295,
+          "mode": "list",
+          "cachedResultName": "inventory n8n",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1ZaxGLEmRtdveFVsQw8Ho-_kOd5KmYefloyfiWZpr3z8/edit#gid=383153295"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Product Name": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Product_Name__using_to_match_', ``, 'string') }}",
+            "Product ID": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Product_ID', ``, 'string') }}",
+            "Category": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Category', ``, 'string') }}",
+            "Supplier": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Supplier', ``, 'string') }}",
+            "Purchase Price": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Purchase_Price', ``, 'string') }}",
+            "Selling Price": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Selling_Price', ``, 'string') }}",
+            "Stock In": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Stock_In', ``, 'string') }}",
+            "Stock Out": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Stock_Out', ``, 'string') }}",
+            "Status": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Status', ``, 'string') }}",
+            "Available Stock": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Available_Stock', ``, 'string') }}"
+          },
+          "matchingColumns": [
+            "Product Name"
+          ],
+          "schema": [
+            {
+              "id": "Product ID",
+              "displayName": "Product ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Product Name",
+              "displayName": "Product Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Category",
+              "displayName": "Category",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Supplier",
+              "displayName": "Supplier",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Purchase Price",
+              "displayName": "Purchase Price",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Selling Price",
+              "displayName": "Selling Price",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Stock In",
+              "displayName": "Stock In",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Stock Out",
+              "displayName": "Stock Out",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Available Stock",
+              "displayName": "Available Stock",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        544,
+        128
+      ],
+      "id": "c82bfeb1-c621-4326-9b86-8f403bafe365",
+      "name": "Append or update row in sheet in Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "vWvjZt3x2vV0Q3r5",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet in Google Sheets": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append or update row in sheet in Google Sheets": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false,
+    "timeSavedMode": "fixed",
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "versionId": "8e79d8c3-24b7-4959-8622-011b72daf537",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "894ef91aa053be8c15824775a4f82309cab090282fe396fca35260d336871f79"
+  },
+  "id": "DKLfpbYNuO5lgUD4",
+  "tags": []
+}
